@@ -73,7 +73,7 @@
 
     <login-config>
         <auth-method>KEYCLOAK</auth-method>
-        <realm-name>basic-auth</realm-name>
+        <realm-name>team</realm-name>
     </login-config>
 
 
