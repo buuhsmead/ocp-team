@@ -1,5 +1,3 @@
-package com.github.buuhsmead.openshift.team.jee.keycloak;
-
 /*
  * JBoss, Home of Professional Open Source
  * Copyright 2016, Red Hat, Inc. and/or its affiliates, and individual
@@ -16,21 +14,16 @@ package com.github.buuhsmead.openshift.team.jee.keycloak;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.keycloak.quickstart.appjee;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.adapters.AdapterDeploymentContext;
 import org.keycloak.adapters.KeycloakDeployment;
 import org.keycloak.common.util.KeycloakUriBuilder;
 import org.keycloak.constants.ServiceUrlConstants;
-import org.keycloak.representations.AccessToken;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 /**
  * Controller simplifies access to the server environment from the JSP.
@@ -39,33 +32,18 @@ import java.io.IOException;
  */
 public class Controller {
 
-    private static final ObjectMapper mapper = new ObjectMapper();
-
-    static {
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
-        mapper.setSerializationInclusion(Include.NON_NULL);
-    }
-
-    public void handleLogout(HttpServletRequest req) throws ServletException {
-        if (req.getParameter("logout") != null) {
-            req.logout();
-        }
-    }
-
     public boolean isLoggedIn(HttpServletRequest req) {
         return getSession(req) != null;
     }
 
-    public boolean showToken(HttpServletRequest req) {
-        return req.getParameter("showToken") != null;
+    public void handleLogout(HttpServletRequest req) throws ServletException {
+        if (isLogoutAction(req)) {
+            req.logout();
+        }
     }
 
-    public AccessToken getIDToken(HttpServletRequest req) {
-        return getSession(req).getToken();
-    }
-
-    public AccessToken getToken(HttpServletRequest req) {
-        return getSession(req).getToken();
+    public boolean isLogoutAction(HttpServletRequest req) {
+        return getAction(req).equals("logout");
     }
 
     public String getAccountUri(HttpServletRequest req) {
@@ -73,7 +51,7 @@ public class Controller {
         String baseUrl = getAuthServerBaseUrl(req);
         String realm = session.getRealm();
         return KeycloakUriBuilder.fromUri(baseUrl).path(ServiceUrlConstants.ACCOUNT_SERVICE_PATH)
-                .queryParam("referrer", "app-profile-jsp")
+                .queryParam("referrer", "app-jsp")
                 .queryParam("referrer_uri", getReferrerUri(req)).build(realm).toString();
     }
 
@@ -92,11 +70,24 @@ public class Controller {
         return deployment.getAuthServerBaseUrl();
     }
 
-    public String getTokenString(HttpServletRequest req) throws IOException {
-        return mapper.writeValueAsString(getToken(req));
+    public String getMessage(HttpServletRequest req) {
+        String action = getAction(req);
+        if (action.equals("")) return "";
+        if (isLogoutAction(req)) return "";
+
+        try {
+            return "Message: " + ServiceClient.callService(req, getSession(req), action);
+        } catch (ServiceClient.Failure f) {
+            return "<span class='error'>" + f.getStatus() + " " + f.getReason() + "</span>";
+        }
     }
 
     private KeycloakSecurityContext getSession(HttpServletRequest req) {
         return (KeycloakSecurityContext) req.getAttribute(KeycloakSecurityContext.class.getName());
+    }
+
+    private String getAction(HttpServletRequest req) {
+        if (req.getParameter("action") == null) return "";
+        return req.getParameter("action");
     }
 }
