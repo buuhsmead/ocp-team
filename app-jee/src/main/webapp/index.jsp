@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="styles.css"/>
 </head>
 <body>
-<jsp:useBean id="controller" class="org.keycloak.quickstart.profilejee.Controller" scope="request"/>
+<jsp:useBean id="controller" class="com.github.buuhsmead.openshift.team.jee.keycloak.Controller" scope="request"/>
 <% controller.handleLogout(request); %>
 
 <c:set var="isLoggedIn" value="<%=controller.isLoggedIn(request)%>"/>
