@@ -1,8 +1,0 @@
-{
-  "realm": "Team",
-  "auth-server-url": "https://secure-sso-rht-sso.ocp.it-speeltuin.net/auth",
-  "ssl-required": "external",
-  "resource": "app-jee",
-  "public-client": true,
-  "use-resource-role-mappings": true
-}
