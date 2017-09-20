@@ -33,9 +33,6 @@
         <role-name>ADMIN</role-name>
     </security-role>
 
-    <security-role>
-        <role-name>*</role-name>
-    </security-role>
 
     <!-- Only role PARTNER is allowed to wholesale -->
     <security-constraint>
@@ -67,15 +64,7 @@
         </user-data-constraint>
     </security-constraint>
 
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>app</web-resource-name>
-            <url-pattern>/protected.jsp</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>*</role-name>
-        </auth-constraint>
-    </security-constraint>
+
 
 
     <login-config>
