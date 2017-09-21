@@ -1,0 +1,5 @@
+<module xmlns="urn:jboss:module:1.1" name="org.huub">
+    <resources>
+        <resource-root path="/config"/>
+    </resources>
+</module>
