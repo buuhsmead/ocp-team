@@ -71,5 +71,7 @@
         <auth-method>KEYCLOAK</auth-method>
     </login-config>
 
-
+<module-name>
+    ocp-team
+</module-name>
 </web-app>
