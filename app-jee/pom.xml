@@ -24,6 +24,7 @@
         <jboss-eap-javaee7-with-tools.version>7.0.7.GA</jboss-eap-javaee7-with-tools.version>
 
         <keycloak.version>2.5.7.Final-redhat-2</keycloak.version>
+        <deltaspike.version>1.8.0</deltaspike.version>
     </properties>
 
 
@@ -58,12 +59,8 @@
             </dependency>
 
 
-        <!-- keycloak dependencies -->
-        <!--<dependency>-->
-            <!--<groupId>org.keycloak</groupId>-->
-            <!--<artifactId>keycloak-core</artifactId>-->
-            <!--<version>2.5.7.Final-redhat-2</version>-->
-        <!--</dependency>-->
+        <!-- keycloak dependencies : provided by eap70-sso-s2i -->
+
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-core</artifactId>
@@ -83,119 +80,26 @@
             <scope>provided</scope>
         </dependency>
 
+        <!--<dependency>-->
+            <!--<groupId>org.apache.httpcomponents</groupId>-->
+            <!--<artifactId>httpclient</artifactId>-->
+            <!--<version>4.5.0.redhat-1</version>-->
+            <!--<scope>compile</scope>-->
+        <!--</dependency>-->
+
+        <!-- DeltaSpike -->
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.0.redhat-1</version>
-            <scope>compile</scope>
+            <groupId>org.apache.deltaspike.core</groupId>
+            <artifactId>deltaspike-core-api</artifactId>
+            <version>${deltaspike.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.deltaspike.core</groupId>
+            <artifactId>deltaspike-core-impl</artifactId>
+            <version>${deltaspike.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
-
-        <!--&lt;!&ndash; First declare the APIs we depend on and need for compilation. All-->
-            <!--of them are provided by JBoss EAP &ndash;&gt;-->
-
-        <!--&lt;!&ndash; Import the CDI API, we use provided scope as the API is included in-->
-            <!--JBoss EAP &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>javax.enterprise</groupId>-->
-            <!--<artifactId>cdi-api</artifactId>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; Import the Common Annotations API (JSR-250), we use provided scope-->
-            <!--as the API is included in JBoss EAP &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.jboss.spec.javax.annotation</groupId>-->
-            <!--<artifactId>jboss-annotations-api_1.2_spec</artifactId>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; Import the JAX-RS API, we use provided scope as the API is included-->
-            <!--in JBoss EAP &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.jboss.spec.javax.ws.rs</groupId>-->
-            <!--<artifactId>jboss-jaxrs-api_2.0_spec</artifactId>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; Import the JPA API, we use provided scope as the API is included in-->
-            <!--JBoss EAP &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.hibernate.javax.persistence</groupId>-->
-            <!--<artifactId>hibernate-jpa-2.1-api</artifactId>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; Import the EJB API, we use provided scope as the API is included in-->
-            <!--JBoss EAP &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.jboss.spec.javax.ejb</groupId>-->
-            <!--<artifactId>jboss-ejb-api_3.2_spec</artifactId>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; Bean Validation Implementation &ndash;&gt;-->
-        <!--&lt;!&ndash; Provides portable constraints such as @Email &ndash;&gt;-->
-        <!--&lt;!&ndash; Hibernate Validator is shipped in JBoss EAP &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.hibernate</groupId>-->
-            <!--<artifactId>hibernate-validator</artifactId>-->
-            <!--<scope>provided</scope>-->
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<groupId>org.slf4j</groupId>-->
-                    <!--<artifactId>slf4j-api</artifactId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; Import the JSF API, we use provided scope as the API is included in-->
-            <!--JBoss EAP &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.jboss.spec.javax.faces</groupId>-->
-            <!--<artifactId>jboss-jsf-api_2.2_spec</artifactId>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; Now we declare any tools needed &ndash;&gt;-->
-
-        <!--&lt;!&ndash; Annotation processor to generate the JPA metamodel classes for-->
-            <!--typesafe criteria queries &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.hibernate</groupId>-->
-            <!--<artifactId>hibernate-jpamodelgen</artifactId>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; Annotation processor that raising compilation errors whenever constraint-->
-            <!--annotations are incorrectly used. &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.hibernate</groupId>-->
-            <!--<artifactId>hibernate-validator-annotation-processor</artifactId>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; Needed for running tests (you may also use TestNG) &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>junit</groupId>-->
-            <!--<artifactId>junit</artifactId>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; Optional, but highly recommended &ndash;&gt;-->
-        <!--&lt;!&ndash; Arquillian allows you to test enterprise code such as EJBs and Transactional(JTA)-->
-            <!--JPA from JUnit/TestNG &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.jboss.arquillian.junit</groupId>-->
-            <!--<artifactId>arquillian-junit-container</artifactId>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>org.jboss.arquillian.protocol</groupId>-->
-            <!--<artifactId>arquillian-protocol-servlet</artifactId>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
 
     </dependencies>
 
