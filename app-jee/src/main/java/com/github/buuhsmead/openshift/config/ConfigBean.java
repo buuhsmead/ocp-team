@@ -14,6 +14,8 @@ public class ConfigBean implements Serializable {
     @ConfigProperty(name = "ldap.host", defaultValue = "default_ldap_host")
     String ldapHost;
 
-
+    public ConfigBean() {
+        System.out.print("ldap host from property " + ldapHost);
+    }
 
 }
