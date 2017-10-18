@@ -12,10 +12,13 @@ public class ConfigBean implements Serializable {
 
     @Inject
     @ConfigProperty(name = "ldap.host", defaultValue = "default_ldap_host")
-    String ldapHost;
+    private String ldapHost;
 
     public ConfigBean() {
         System.out.print("ldap host from property " + ldapHost);
     }
 
+    public String getLdapHost() {
+        return ldapHost;
+    }
 }
