@@ -7,5 +7,11 @@ pipeline {
         echo 'checkout is done'
       }
     }
+    stage('Build') {
+      steps {
+        sh 'mvn --version'
+        sh 'ls -latr'
+      }
+    }
   }
 }
