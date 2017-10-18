@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        checkout(scm: scm, poll: true)
+        git(url: 'https://github.com/buuhsmead/ocp-team.git', branch: 'master')
       }
     }
     stage('Build') {
