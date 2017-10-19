@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  name: ocp-team
+  namespace: freubel
+  labels:
+    app: eap70-sso-s2i
+    application: ocp-team
+    template: eap70-sso-s2i
+    xpaas: 1.4.0
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+spec:
+  triggers:
+    - type: GitHub
+      github:
+        secret: 0U7WpPTm
+    - type: Generic
+      generic:
+        secret: ObWmObXa
+    - type: ImageChange
+      imageChange:
+        lastTriggeredImageID: >-
+          registry.access.redhat.com/jboss-eap-7/eap70-openshift@sha256:b1b664a9b6f797d530bf12c29123947c1feb4590336ecc9d118b3f2e44000524
+    - type: ConfigChange
+  runPolicy: Serial
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/buuhsmead/ocp-team.git'
+      ref: master
+  strategy:
+    type: Source
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        namespace: openshift
+        name: 'jboss-eap70-openshift:1.5'
+      env:
+        - name: ARTIFACT_DIR
+          value: >-
+            app-jee-jsp/target,service-jee-jaxrs/target,app-profile-jee-jsp/target,app-profile-saml-jee-jsp/target
+        - name: MAVEN_ARGS_APPEND
+        - name: MAVEN_MIRROR_URL
+      forcePull: true
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'ocp-team:latest'
+  resources: {}
+  postCommit: {}
+  nodeSelector: null
