@@ -17,6 +17,7 @@ pipeline {
         script {
           def commit_id = readFile('.git/commit-id')
         }
+        
         openshiftTag(destTag: "test:latest,test:${commit_id}", srcStream: 'ocp-team', srcTag: 'ocp-team', destStream: 'ocp-team')
       }
     }
