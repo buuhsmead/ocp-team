@@ -23,7 +23,7 @@
         'dojo/domReady!'
     ], function (dom) {
         var greeting = dom.byId('greeting');
-        greeting.innerHTML += ' from Dojo!';
+        greeting.innerHTML += ' from Dojo in OpenShift!';
     });
 </script>
 </body>
