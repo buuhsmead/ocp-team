@@ -5,12 +5,7 @@ pipeline {
       steps {
         git 'https://github.com/buuhsmead/ocp-team.git'
         echo 'checkout is done'
-      }
-    }
-    stage('Build') {
-      steps {
-        sh 'mvn --version'
-        sh 'ls -latr'
+        openshiftBuild 'buildconfig.yaml'
       }
     }
   }
