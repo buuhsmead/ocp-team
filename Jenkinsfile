@@ -19,7 +19,7 @@ pipeline {
           echo "commit id is ${commit_id}"
         }
         
-        openshiftTag(destTag: "test:latest,test:${commit_id}", srcStream: 'ocp-team', srcTag: 'ocp-team', destStream: 'ocp-team')
+        openshiftTag(destTag: "test-${commit_id}", srcStream: 'ocp-team', srcTag: 'ocp-team', destStream: 'ocp-team')
       }
     }
   }
