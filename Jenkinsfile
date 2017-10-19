@@ -3,8 +3,8 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        openshiftBuild 'buildconfig.yaml'
         sh 'ls -ltra'
+        openshiftBuild 'buildconfig.yaml'
       }
     }
   }
