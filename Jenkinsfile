@@ -4,7 +4,7 @@ pipeline {
     stage('Checkout') {
       steps {
         sh 'ls -ltra'
-        openshiftBuild 'buildconfig.yaml'
+        openshiftBuild 'ocp-team'
       }
     }
   }
