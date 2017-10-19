@@ -3,8 +3,8 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'ls -ltra'
-        openshiftBuild(bldCfg: 'ocp-team', showBuildLogs: 'true')
+        sh 'git rev-parse --short HEAD > .git/commit-id'
+        openshiftBuild 'ocp-team'
       }
     }
     stage('Deploy') {
@@ -14,7 +14,8 @@ pipeline {
     }
     stage('Promote2Test') {
       steps {
-        openshiftTag(srcStream: 'ocp-team', srcTag: 'latest', destStream: 'ocp-team', destTag: 'test:latest')
+        sh 'commit_id = readFile(\'.git/commit-id\')'
+        openshiftTag(destTag: 'test:latest,test:${commit_id}', srcStream: 'ocp-team', srcTag: 'ocp-team', destStream: 'ocp-team')
       }
     }
   }
