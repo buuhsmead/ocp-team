@@ -1,3 +1,4 @@
+
 pipeline {
   agent any
   stages {
@@ -14,8 +15,8 @@ pipeline {
     }
     stage('Promote2Test') {
       steps {
-        commit_id = readFile('.git/commit-id')
-        openshiftTag(destTag: 'test:latest,test:${commit_id}', srcStream: 'ocp-team', srcTag: 'ocp-team', destStream: 'ocp-team')
+        commit_id = readFile '.git/commit-id'
+        openshiftTag(destTag: 'test:latest,test:g${GIT_COMMIT}', srcStream: 'ocp-team', srcTag: 'ocp-team', destStream: 'ocp-team')
       }
     }
   }
