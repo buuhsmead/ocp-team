@@ -9,12 +9,12 @@ pipeline {
     }
     stage('Deploy') {
       steps {
-        openshiftDeploy(depCfg: 'ocp-team', verbose: 'true')
+        openshiftDeploy 'ocp-team'
       }
     }
     stage('Promote2Test') {
       steps {
-        sh 'commit_id = readFile(\'.git/commit-id\')'
+        commit_id = readFile('.git/commit-id')
         openshiftTag(destTag: 'test:latest,test:${commit_id}', srcStream: 'ocp-team', srcTag: 'ocp-team', destStream: 'ocp-team')
       }
     }
