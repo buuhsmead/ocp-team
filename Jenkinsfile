@@ -1,10 +1,15 @@
 pipeline {
   agent any
   stages {
-    stage('Checkout') {
+    stage('Build') {
       steps {
         sh 'ls -ltra'
-        openshiftBuild 'ocp-team'
+        openshiftBuild(bldCfg: 'ocp-team', showBuildLogs: 'true')
+      }
+    }
+    stage('Deploy') {
+      steps {
+        openshiftDeploy(depCfg: 'ocp-team', verbose: 'true')
       }
     }
   }
