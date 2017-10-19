@@ -3,9 +3,8 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git 'https://github.com/buuhsmead/ocp-team.git'
-        echo 'checkout is done'
         openshiftBuild 'buildconfig.yaml'
+        sh 'ls -ltra'
       }
     }
   }
