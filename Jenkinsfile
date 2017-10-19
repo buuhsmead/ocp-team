@@ -14,7 +14,7 @@ pipeline {
     }
     stage('Promote2Test') {
       steps {
-        openshiftTag(destTag: 'test:latest,test:g${env.GIT_COMMIT}', srcStream: 'ocp-team', srcTag: 'ocp-team', destStream: 'ocp-team')
+        openshiftTag(destTag: 'test:latest', srcStream: 'ocp-team', srcTag: 'ocp-team', destStream: 'ocp-team')
       }
     }
   }
