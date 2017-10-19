@@ -15,4 +15,3 @@ node {
       openshiftTag(destTag: "test:latest,test:${commit_id}", srcStream: 'ocp-team', srcTag: 'ocp-team', destStream: 'ocp-team')
   }
 }
-}
