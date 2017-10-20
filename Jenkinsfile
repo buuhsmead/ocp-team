@@ -10,7 +10,7 @@ node('maven') {
   def commit_id = readFile('.git/commit-id')
   def pom = readMavenPom file: 'pom.xml'
   def version = pom.version
-  version.replace('-SNAPSHOT', "${commit_id}")
+  version = version.replace('-SNAPSHOT', "${commit_id}")
 
 echo("Going to as version [${version}].")
 
