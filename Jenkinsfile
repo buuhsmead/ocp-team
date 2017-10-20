@@ -23,7 +23,7 @@ echo("Going to as version [${version}].")
     }
 
     stage('Promote2Test') {
-      openshiftTag(destTag: "${version}", destStream: 'ocp-team', srcTag: 'latest', srcStream: 'ocp-team')
+      openshiftTag(destTag: "latest,${version}", destStream: 'ocp-team', srcTag: 'latest', srcStream: 'ocp-team')
     }
 
 }
