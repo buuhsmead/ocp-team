@@ -12,7 +12,7 @@ node('maven') {
   def version = pom.version
   version.replace('-SNAPSHOT', "${commit_id}")
 
-
+echo("Going to as version [${version}].")
 
     stage('Build') {
       openshiftBuild 'ocp-team'
