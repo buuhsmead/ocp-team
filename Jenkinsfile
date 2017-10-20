@@ -3,13 +3,15 @@
 node('maven') {
 
     stage('Checkout Source') {
+      checkout scm
+      sh('git rev-parse --short HEAD > .git/commit-id')
+    }
 
-    checkout scm
-  }
-
-
+  def commit_id = readFile('.git/commit-id')
   def pom = readMavenPom file: 'pom.xml'
   def version = pom.version
+  version.replace('-SNAPSHOT', "${commit_id}")
+
 
 
     stage('Build') {
