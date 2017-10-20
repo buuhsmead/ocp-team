@@ -1,26 +1,27 @@
-pipeline {
-  agent any
-  stages {
-    stage('Build') {
-      steps {
-        sh 'git rev-parse --short HEAD > .git/commit-id'
-        openshiftBuild 'ocp-team'
-      }
-    }
-    stage('Deploy') {
-      steps {
-        openshiftDeploy 'ocp-team'
-      }
-    }
-    stage('Promote2Test') {
-      steps {
-        script {
-          def commit_id = readFile('.git/commit-id')
-          echo "commit id is ${commit_id}"
-        }
-        
-        openshiftTag(destTag: "test-${commit_id}", srcStream: 'ocp-team', srcTag: 'ocp-team', destStream: 'ocp-team', verbose: 'true')
-      }
-    }
+#!groovy
+
+node('maven') {
+
+    stage('Checkout Source') {
+
+    checkout scm
   }
+
+
+  def pom = readMavenPom file: 'pom.xml'
+  def version = pom.version
+
+
+    stage('Build') {
+      openshiftBuild 'ocp-team'
+    }
+
+    stage('Deploy') {
+      openshiftDeploy('ocp-team' )
+    }
+
+    stage('Promote2Test') {
+      openshiftTag(destTag: "${version}", destStream: 'ocp-team', srcTag: 'latest', srcStream: 'ocp-team')
+    }
+
 }
