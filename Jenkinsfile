@@ -1,10 +1,10 @@
 
 
 
-library identifier: 'github.com/fabric8io/fabric8-pipeline-library@master', retriever: modernSCM(
-        [$class: 'GitSCMSource',
-         remote: 'https://github.com/fabric8io/fabric8-pipeline-library.git'])
-
+//library identifier: 'github.com/fabric8io/fabric8-pipeline-library@master', retriever: modernSCM(
+//        [$class: 'GitSCMSource',
+//         remote: 'https://github.com/fabric8io/fabric8-pipeline-library.git'])
+//
 
 node('maven') {
 
@@ -20,10 +20,9 @@ node('maven') {
     version = version.replace('-SNAPSHOT', "-${commit_id}")
 
     echo("Going to use as version/tag [${version}].")
-    version = getNewVersion{}
-    echo("Going to use as version/tag [${version}].")
+//    version = getNewVersion{}
+//    echo("Going to use as version/tag [${version}].")
 
-    echo "CLOUD: [$cloudConfig]"
 
     stage('Build') {
         openshiftBuild 'ocp-team'
