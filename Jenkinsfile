@@ -1,5 +1,6 @@
 
-library identifier: 'github.com/fabric8io/fabric8-pipeline-library@master', retriever: modernSCM()
+
+library('github.com/fabric8io/fabric8-pipeline-library@master', retriever: scm)
 
 node('maven') {
 
