@@ -1,7 +1,8 @@
-#!groovy
-@Library('github.com/fabric8io/fabric8-pipeline-library@master') _
+
+Load('github.com/fabric8io/fabric8-pipeline-library@master')
 
 node('maven') {
+
 
     stage('Checkout Source') {
         checkout scm
