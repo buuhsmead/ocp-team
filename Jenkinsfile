@@ -1,4 +1,5 @@
 #!groovy
+@Library('github.com/fabric8io/fabric8-pipeline-library@master') _
 
 node('maven') {
 
@@ -13,6 +14,9 @@ node('maven') {
     version = version.replace('-SNAPSHOT', "-${commit_id}")
 
     echo("Going to use as version/tag [${version}].")
+    version = getNewVersion{}
+    echo("Going to use as version/tag [${version}].")
+
 
     stage('Build') {
         openshiftBuild 'ocp-team'
