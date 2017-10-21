@@ -1,6 +1,6 @@
 
 
-library('github.com/fabric8io/fabric8-pipeline-library@master', retriever: scm)
+library(identifier: 'github.com/fabric8io/fabric8-pipeline-library@master', retriever: scm)
 
 node('maven') {
 
