@@ -22,7 +22,7 @@ node('maven') {
     echo("Going to use as version/tag [${version}].")
     version = getNewVersion{}
     echo("Going to use as version/tag [${version}].")
-    def cloudConfig =  getCloudConfig()
+    def cloudConfig =  getCloudConfig{}
     echo "CLOUD: [$cloudConfig]"
 
     stage('Build') {
