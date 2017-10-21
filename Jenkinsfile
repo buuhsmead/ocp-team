@@ -1,6 +1,10 @@
 
 
-library(identifier: 'github.com/fabric8io/fabric8-pipeline-library@master', retriever: scm)
+
+library identifier: 'github.com/fabric8io/fabric8-pipeline-library@master', retriever: modernSCM(
+        [$class: 'GitSCMSource',
+         remote: 'https://github.com/fabric8io/fabric8-pipeline-library.git'])
+
 
 node('maven') {
 
