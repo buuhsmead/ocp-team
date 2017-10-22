@@ -33,7 +33,7 @@ node('maven') {
     }
 
     stage('Promote2Test') {
-       // openshiftTag(destTag: "${version}", destStream: 'ocp-team', srcTag: 'latest', srcStream: 'ocp-team')
+       openshiftTag(destTag: "${version}", destStream: 'ocp-team', srcTag: 'latest', srcStream: 'ocp-team')
 
         openshiftTag(destTag: "${version}", destStream: 'ocp-team-test/ocp-team-test', srcTag: "${version}", srcStream: 'ocp-team')
     }
