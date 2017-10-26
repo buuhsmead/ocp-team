@@ -32,8 +32,6 @@ public KubernetesList create() {
             .build();
 }
 
-@KubernetesProvider("pv.yaml")
-public Kubernetes
 
 
-println createPV()
+println create()
